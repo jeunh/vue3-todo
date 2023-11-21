@@ -1,10 +1,11 @@
 <template>
   <TodoHeader></TodoHeader>
   <TodoInput></TodoInput>
-  <TodoList></TodoList>
+  <TodoList :todoItems="todoItems"></TodoList>
 </template>
 
 <script>
+import { ref } from 'vue';
 import TodoHeader from './components/TodoHeader.vue';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
@@ -14,7 +15,26 @@ export default {
     TodoHeader,
     TodoInput,
     TodoList
-}
+  },
+  setup() {
+    // data
+    const todoItems = ref([]);
+
+    // methods
+    function fecthTodos() {
+      const result = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const todoItem = localStorage.key(i);
+        // items.value.push(todoItem);
+        result.push(todoItem);
+      }
+      return result;
+    }
+
+    todoItems.value = fecthTodos();
+
+    return { todoItems }
+  }
 }
 </script>
 
