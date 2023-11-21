@@ -1,7 +1,7 @@
 <template>
   <TodoHeader></TodoHeader>
   <TodoInput @add="addTodoItem"></TodoInput>
-  <TodoList :todoItems="todoItems"></TodoList>
+  <TodoList :todoItems="todoItems" @remove="removeTodoItem"></TodoList>
 </template>
 
 <script>
@@ -38,7 +38,18 @@ export default {
       localStorage.setItem(todo, todo);
     }
 
+    // function removeTodoItem(item, index) {
+    //   todoItems.value.splice(index, 1);
+    //   localStorage.removeItem(item);
+    // }
+
     return { todoItems, addTodoItem }
+  },
+  methods: {
+    removeTodoItem(item, index) {
+      this.todoItems.splice(index, 1);
+      localStorage.removeItem(item);
+    }
   }
 }
 </script>
