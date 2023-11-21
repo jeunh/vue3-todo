@@ -10,9 +10,19 @@ import { ref } from 'vue';
   export default {
     setup() {
       // data
-      const items = ref(['애플', '삼성', '인프런']);
+      const items = ref([]);
 
-      return { items }
+      // methods
+      function fecthTodos() {
+        for (let i = 0; i < localStorage.length; i++) {
+          const todoItem = localStorage.key(i);
+          items.value.push(todoItem);
+        }
+      }
+
+      fecthTodos();
+
+      return { items, fecthTodos }
     }
   }
 </script>
