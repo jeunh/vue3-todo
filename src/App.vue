@@ -1,5 +1,5 @@
 <template>
-  <TodoHeader></TodoHeader>
+  <TodoHeader :appTitle="title"></TodoHeader>
   <TodoInput @add="addTodoItem"></TodoInput>
   <TodoList :todoItems="todoItems" @remove="removeTodoItem"></TodoList>
 </template>
@@ -15,6 +15,11 @@ export default {
     TodoHeader,
     TodoInput,
     TodoList
+  },
+  data() {
+    return {
+      title: '할일 앱'
+    }
   },
   setup() {
     // data
