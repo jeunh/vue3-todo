@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import TodoHeader from './components/TodoHeader.vue';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
@@ -36,7 +36,19 @@ export default {
       return result;
     }
 
-    todoItems.value = fecthTodos();
+    // 라이프 사이클 API와 같은 동작 - beforeCreate, created
+    console.log('1 : setup called');
+
+    // 라이프 사이클 API
+    onBeforeMount(() => {
+      console.log('2 : onBeforeMount called');
+      todoItems.value = fecthTodos();
+    })
+
+    onMounted(() => {
+      console.log('3 : onMounted called');
+    })
+
 
     function addTodoItem(todo) {
       todoItems.value.push(todo);
