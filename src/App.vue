@@ -5,10 +5,12 @@
 </template>
 
 <script>
-import { onBeforeMount, onMounted, ref } from 'vue';
+// import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount } from 'vue';
 import TodoHeader from './components/TodoHeader.vue';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
+import { useTodo } from "./hooks/useTodo";
 
 export default {
   components: {
@@ -22,39 +24,22 @@ export default {
     }
   },
   setup() {
-    // data
-    const todoItems = ref([]);
-
-    // methods
-    function fecthTodos() {
-      const result = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const todoItem = localStorage.key(i);
-        // items.value.push(todoItem);
-        result.push(todoItem);
-      }
-      return result;
-    }
+    const { todoItems, addTodoItem, fecthTodos } = useTodo();
 
     // 라이프 사이클 API와 같은 동작 - beforeCreate, created
-    console.log('1 : setup called');
+    // console.log('1 : setup called');
 
     // 라이프 사이클 API
     onBeforeMount(() => {
-      console.log('2 : onBeforeMount called');
+      // console.log('2 : onBeforeMount called');
       todoItems.value = fecthTodos();
     })
 
-    onMounted(() => {
-      console.log('3 : onMounted called');
-    })
+    // onMounted(() => {
+    //   console.log('3 : onMounted called');
+    // })
 
-
-    function addTodoItem(todo) {
-      todoItems.value.push(todo);
-      localStorage.setItem(todo, todo);
-    }
-
+    
     // function removeTodoItem(item, index) {
     //   todoItems.value.splice(index, 1);
     //   localStorage.removeItem(item);
